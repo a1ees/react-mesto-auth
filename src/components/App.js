@@ -7,6 +7,7 @@ import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
+import Footer from './Footer';
 import { api } from '../utils/Api';
 import Main from './Main';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
@@ -15,6 +16,7 @@ import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import { auth } from '../utils/Auth';
 import { useNavigate } from 'react-router-dom';
+import InfoTooltip from './InfoTooltip';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -30,6 +32,16 @@ function App() {
   const [isInfoTooltipOpen, setInfoTooltipOpen] = useState(false);
   const [profileEmail, setProfileEmail] = useState('')
   const navigate = useNavigate();
+  const [textTooltip, setTextTooltip] = useState('')
+  const [logoTooltip, setlogoTooltip] = useState('')
+
+  const handleTextTooltip = (text) => {
+    setTextTooltip(text)
+  }
+
+  const handleLogoTooltip = (logo) => {
+    setlogoTooltip(logo)
+  }
 
   const getEmail = (email) => {
     setProfileEmail(email)
@@ -194,8 +206,8 @@ function App() {
               cards={cards}
               sign={singOut}
               loggedIn={loggedIn} />} 
-              />
-
+            />
+            <Route path="/" element={<Footer />} />
             <Route path='/sign-in' element={ isSignIn ?
                (<div><Header sign={handleSign} name='Регистрация' />
                <Login 
@@ -204,11 +216,13 @@ function App() {
                 onPasswordChange={handlePasswordChange}
                 onEmailChange={handleEmailChange}
                 onInfoTooltip={handleInfoTooltip}
-                isOpen={isInfoTooltipOpen}
                 onClose={closeAllPopups}
                 handleLogin={handleLogin}
                 resetForm={resetForm}
-                getEmail={getEmail} />
+                getEmail={getEmail}
+                setText={handleTextTooltip}
+                setLogo={handleLogoTooltip} />
+                
                </div>) :
                 (<Navigate to="/sign-up" />)} 
             />
@@ -223,9 +237,10 @@ function App() {
                   onEmailChange={handleEmailChange}
                   sign={handleSign}
                   onInfoTooltip={handleInfoTooltip}
-                  isOpen={isInfoTooltipOpen}
                   onClose={closeAllPopups}
-                  resetForm={resetForm} />
+                  resetForm={resetForm}
+                  setText={handleTextTooltip}
+                  setLogo={handleLogoTooltip} />
                 </div>)} 
             />
           </Routes>
@@ -241,6 +256,8 @@ function App() {
             onClose={closeAllPopups}
             selectedCard={selectedCard}
           />
+          <InfoTooltip onClose={closeAllPopups} isOpen={isInfoTooltipOpen} toolTipText={textTooltip} toolTipLogo={logoTooltip} />
+          {loggedIn && <Footer />}
         </div>
       </div>
     </CurrentUserContext.Provider>

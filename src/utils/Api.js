@@ -1,6 +1,5 @@
 import { apiConfig } from "./constants";
 
-
 class Api {
   constructor(options) {
     this.baseUrl = options.baseUrl;

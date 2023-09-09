@@ -1,23 +1,20 @@
 import React from "react";
 import AuthForm from "./AuthForm";
-import { useState } from "react";
 import { auth } from "../utils/Auth";
 import AuthLogoSucces from '../images/logo/AuthLogoSucces.svg'
 import AuthLogoError from '../images/logo/AuthLogoError.svg'
 
 function Register(props) {
-  const [regText, setRegText] = useState('')
-  const [regLogo, setRegLogo] = useState('')
 
   function registerSucces() {
-    setRegText('Вы успешно зарегистрировались!')
-    setRegLogo(AuthLogoSucces)
+    props.setText('Вы успешно зарегистрировались!')
+    props.setLogo(AuthLogoSucces)
     props.onInfoTooltip()
   }
 
   function registerError() {
-    setRegLogo(AuthLogoError)
-    setRegText('Что-то пошло не так! Попробуйте ещё раз.')
+    props.setLogo(AuthLogoError)
+    props.setText('Что-то пошло не так! Попробуйте ещё раз.')
     props.onInfoTooltip()
   }
 
@@ -36,7 +33,7 @@ function Register(props) {
 
   return (
     <div>
-      <AuthForm title='Регистрация' buttonText='Зарегистрироваться' onSubmit={registration} onClose={props.onClose} isOpen={props.isOpen} toolTipText={regText} toolTipLogo={regLogo}>
+      <AuthForm title='Регистрация' buttonText='Зарегистрироваться' onSubmit={registration} onClose={props.onClose}>
           <label className="authform__item">
             <input className="authform__input" placeholder="Email" value={props.email} onChange={props.onEmailChange} />
           </label>

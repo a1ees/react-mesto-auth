@@ -1,5 +1,4 @@
 import React from "react";
-import InfoTooltip from "./InfoTooltip";
 
 function AuthForm(props) {
   return (
@@ -10,7 +9,6 @@ function AuthForm(props) {
           {props.children}
         </form>
       </div>
-      <InfoTooltip onClose={props.onClose} isOpen={props.isOpen} toolTipText={props.toolTipText} toolTipLogo={props.toolTipLogo} />
     </section>
   );
 }

@@ -3,7 +3,6 @@ import avatarLogo from '../images/logo/avatarlogo.svg';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Header from './Header.js';
 import Card from './Card';
-import Footer from './Footer';
 
 function Main(props) {
   const user = useContext(CurrentUserContext);
@@ -38,9 +37,7 @@ function Main(props) {
     {props.cards.map((card) => (
       <Card onCardDelete={props.onCardDelete} onCardLike={props.onCardLike} key={card._id} card={card} onCardClick={() => props.onCardClick(card)} />
     ))}
-
     </section>
-    <Footer />
   </main>
   )
 }
