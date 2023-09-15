@@ -4,12 +4,16 @@ import PopupWithForm from "./PopupWithForm";
 function AddPlacePopup(props) {
   const [name, setName] = useState('')
   const [link, setLink] = useState('')
+  const [errorName, setErrorName] = useState('')
+  const [errorLink, setErrorLink] = useState('')
 
   const handleNameChange = (event) => {
+    setErrorName(event.target.validationMessage)
     setName(event.target.value);
   };
 
   const handleLinkChange = (event) => {
+    setErrorLink(event.target.validationMessage)
     setLink(event.target.value);
   };
 
@@ -27,7 +31,7 @@ function AddPlacePopup(props) {
 }, [props.isOpen]); 
 
   return(
-    <PopupWithForm name="add-card" title="Новое место" buttonText="Сохранить" isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit}>
+    <PopupWithForm name="add-card" title="Новое место" buttonText="Сохранить" setValid={props.setValid} isValid={props.isValid} isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit}>
     <label className="popup__item popup__item_place">
       <input
         id="place-input"
@@ -37,12 +41,12 @@ function AddPlacePopup(props) {
         name="place"
         minLength={2}
         maxLength={30}
-        required=""
+        required
         onChange={handleNameChange}
         value={name}
       />
-      <span className="place-input-error popup__input-error">
-        Заполните это поле
+      <span className={`place-input-error popup__input-error ${!props.isValid && 'popup__input-error_visible'}`}>
+        {errorName}
       </span>
     </label>
     <label className="popup__item popup__item_place-pic">
@@ -52,12 +56,12 @@ function AddPlacePopup(props) {
         type="url"
         placeholder="Ссылка на картинку"
         name="placepic"
-        required=""
+        required
         onChange={handleLinkChange}
         value={link}
       />
-      <span className="place-pic-input-error popup__input-error">
-        Заполните это поле
+      <span className={`place-pic-input-error popup__input-error ${!props.isValid && 'popup__input-error_visible'}`}>
+      {errorLink}
       </span>
     </label>
   </PopupWithForm>

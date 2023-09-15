@@ -7,3 +7,5 @@ const ProtectedRoute = ({ element: Component, ...props  }) => {
 )};
 
 export default ProtectedRoute;
+
+

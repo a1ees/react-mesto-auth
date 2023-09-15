@@ -34,6 +34,11 @@ function App() {
   const navigate = useNavigate();
   const [textTooltip, setTextTooltip] = useState('')
   const [logoTooltip, setlogoTooltip] = useState('')
+  const [isValid, setValid] = useState(false)
+
+  const handleValidChange = (valid) => {
+    setValid(valid)
+  }
 
   const handleTextTooltip = (text) => {
     setTextTooltip(text)
@@ -128,6 +133,7 @@ function App() {
     .then((onUpdateUser) => {
       setCurrentUser(onUpdateUser)
       closeAllPopups()
+      setValid(false)
     })
     .catch(error => {
       console.error('Ошибка при отправке:', error);
@@ -139,6 +145,7 @@ function App() {
     .then((onUpdateAvatar) => {
       setCurrentUser(onUpdateAvatar)
       closeAllPopups()
+      setValid(false)
     })
     .catch(error => {
       console.error('Ошибка при отправке:', error);
@@ -149,6 +156,7 @@ function App() {
     api.sendCard({ name, link })
     .then((newCard) => {
       setCards([newCard, ...cards]);
+      setValid(false)
       closeAllPopups()
     })
     .catch(error => {
@@ -244,11 +252,11 @@ function App() {
                 </div>)} 
             />
           </Routes>
-          <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} /> 
+          <EditProfilePopup setValid={handleValidChange} isValid={isValid} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} /> 
       
-          <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} />
+          <AddPlacePopup setValid={handleValidChange} isValid={isValid} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} />
       
-          <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} /> 
+          <EditAvatarPopup setValid={handleValidChange} isValid={isValid} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} /> 
       
           <PopupWithForm name="delete-card" title="Вы уверены?" buttonText="Да" />
           <ImagePopup
