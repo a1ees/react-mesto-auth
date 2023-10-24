@@ -8,6 +8,11 @@ function EditAvatarPopup(props) {
   const handleAvatarChange = (event) => {
     setErrorAvatar(event.target.validationMessage)
   };
+  
+  function closeAvatar() {
+    props.onClose()
+    avatarRef.current.value = "";
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -19,7 +24,7 @@ function EditAvatarPopup(props) {
   } 
 
   return(
-    <PopupWithForm name="edit-avatar" title="Обновить аватар" setValid={props.setValid} isValid={props.isValid} isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit} buttonText="Да">
+    <PopupWithForm name="edit-avatar" title="Обновить аватар" setValid={props.setValid} isValid={props.isValid} isOpen={props.isOpen} onClose={closeAvatar} onSubmit={handleSubmit} buttonText="Да">
     <label className="popup__item popup__item_avatar">
       <input
         ref={avatarRef}

@@ -57,6 +57,10 @@ function App() {
     setEmail('')
   }
 
+  const resetPassword = () => {
+    setPassword('');
+  }
+
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
@@ -87,6 +91,7 @@ function App() {
         navigate('/')
         setProfileEmail(data.data.email)
       })
+      
       .catch((err) => {
         console.log(err)
       })
@@ -227,6 +232,7 @@ function App() {
                 onClose={closeAllPopups}
                 handleLogin={handleLogin}
                 resetForm={resetForm}
+                resetPassword={resetPassword}
                 getEmail={getEmail}
                 setText={handleTextTooltip}
                 setLogo={handleLogoTooltip} />

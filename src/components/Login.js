@@ -11,7 +11,7 @@ function Login(props) {
 
   function loginError() {
     props.setLogo(AuthLogoError)
-    props.setText('Что-то пошло не так! Попробуйте ещё раз.')
+    props.setText('Неверный логин/пароль :с Попробуйте ещё раз!')
     props.onInfoTooltip()
   }
 
@@ -33,7 +33,7 @@ function Login(props) {
     })
     .catch(() => {
       loginError()
-      props.resetForm();
+      props.resetPassword();
     })
   }
 
